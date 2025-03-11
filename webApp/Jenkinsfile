@@ -2,15 +2,15 @@ pipeline {
     agent any
 
     environment {
-        DOCKER_HUB_CREDENTIALS = 'docker-hub-creds' // Your Docker Hub credentials ID
-        DOCKER_IMAGE_NAME = 'your-dockerhub-username/comp367-webapp' // Replace with your Docker Hub username and image name
-        DOCKER_IMAGE_TAG = "${BUILD_NUMBER}" // Use Jenkins build number as tag
+        DOCKER_HUB_CREDENTIALS = 'docker-hub-creds'
+        DOCKER_IMAGE_NAME = 'jaguil24/comp367-webapp'
+        DOCKER_IMAGE_TAG = "${BUILD_NUMBER}"
     }
 
     stages {
         stage('Checkout') {
             steps {
-                git 'YOUR_GIT_REPOSITORY_URL' // Replace with your Git repository URL
+                git 'https://github.com/jaguil24/Lab3.git'
             }
         }
 
