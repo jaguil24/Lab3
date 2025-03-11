@@ -16,8 +16,10 @@ pipeline {
 
         stage('Build Maven Project') {
             steps {
-                tool name: 'Maven-3.9.9'
-                bat 'mvn clean install'
+                bat '''
+                    cd webApp/comp367-webapp
+                    "C:\\Program Files\\Jenkins\\apache-maven-3.9.9\\bin\\mvn" clean install
+                '''
             }
         }
 
