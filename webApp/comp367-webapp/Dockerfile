@@ -1,27 +1,25 @@
-# Use an official Maven image to build the project
-FROM maven:3.8.4-jdk-11 as build
+# Use a multi-stage build
 
-# Set the working directory in the container
+# Build stage
+FROM maven:3.8.4-jdk-11 AS build
+
 WORKDIR /app
 
-# Copy the pom.xml and source code
 COPY pom.xml .
 COPY src /app/src
 
-# Build the project using Maven
 RUN mvn clean install
 
-# Use an openjdk image to run the application
+# Stage 1
 FROM openjdk:11-jre-slim
 
-# Set the working directory in the container
 WORKDIR /app
 
-# Copy the built JAR file from the previous build stage
-COPY --from=build /app/target/your-webapp.jar /app/your-webapp.jar
+# Copy the built WAR file from the previous build stage
+COPY --from=build /app/target/comp367-webapp.war /app/comp367-webapp.war
 
 # Expose port 8080 (or any port your app uses)
 EXPOSE 8080
 
-# Command to run the app
-CMD ["java", "-jar", "your-webapp.jar"]
+# Command to run the application
+CMD ["java", "-jar", "/app/comp367-webapp.war"]
